@@ -16,8 +16,6 @@ const Home = ({ products }) => {
           <Product key={product._id} product={product} />
         ))}
       </div>
-
-      <FooterBanner />
       <p className='marquee-container'>
         <marquee scrollamount='10' >
           <span className='text-red'>NO. 1 Wireless Hearable Brand In World</span>
@@ -32,6 +30,8 @@ const Home = ({ products }) => {
           <span className='text-red'>NO. 1 Wireless Hearable Brand In World</span>
         </marquee>
       </p>
+      <FooterBanner />
+
     </div >
   );
 };
