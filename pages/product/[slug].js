@@ -8,14 +8,12 @@ import { Product } from '../../components';
 const ProductDetail = ({ product, products }) => {
   const { image, name, details, price } = product;
   const [index, setIndex] = useState(0)
-  const { onAdd, cartItems, setShowCart, maxQty, decQty, incQty, qty } =
-    useStateContext();
+  const { onAdd, cartItems, setShowCart, maxQty, decQty, incQty, qty } = useStateContext();
 
   const handleBuyNow = () => {
     onAdd(product, qty);
     setShowCart(true);
   };
-
 
   return (
     <div>
