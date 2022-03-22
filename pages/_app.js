@@ -9,6 +9,7 @@ const MyApp = ({ Component, pageProps }) => (
     <Layout>
       <Component {...pageProps} />
     </Layout>
+
   </StateContext>
 );
 

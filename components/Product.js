@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import Link from 'next/link';
 
-import { urlFor } from '../client';
+import { urlFor } from '../lib/client';
 
 const Product = ({ product }) => {
   const { image, name, slug, price } = product;
@@ -13,7 +13,7 @@ const Product = ({ product }) => {
       <Link href={`/product/${slug.current}`}>
         <div className='product-card'>
           <img
-            src={urlFor(image[0])}
+            src={urlFor(image && image[0])}
             width={250}
             height={250}
             className='product-image'

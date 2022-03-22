@@ -3,6 +3,7 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 const Context = createContext();
 
 export const StateContext = ({ children }) => {
+
   const getLocalStorage = (name) => {
     if (typeof window !== 'undefined') {
       let storage = localStorage.getItem(name);

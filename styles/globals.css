@@ -75,7 +75,6 @@ width: 100%;
   color: gray;
   cursor: pointer;
   position: relative;
-  transform: scale(1,1);
   transition: transform .4s ease;
 }
 .cart-icon:hover{
@@ -270,6 +269,8 @@ text-align: end;
   right: 0;
   top: 0;
   z-index: 100;
+  /* will-change: transform; */
+  transition: all 1s ease-in-out;
 
 }
 .cart-container{
@@ -293,6 +294,7 @@ text-align: end;
   align-items: center;
   gap: 10px;
   justify-content: center;
+
 }
 .footer-container .icons{
   font-size: 30px;
@@ -328,7 +330,7 @@ text-align: end;
   cursor: pointer;
 }
 .product-container{
-  margin-top: 40px;
+  margin-top: 15px;
   overflow: auto;
 max-height: 70vh;
 padding: 20px 10px;
@@ -391,6 +393,11 @@ padding: 30px 65px;
   background-color: #f02d34;
   color: #fff;
   cursor: pointer;
+    transform: scale(1, 1);
+  transition: transform 0.5s ease;
+}
+.btn:hover{
+  transform: scale(1.1,1.1);
 }
 .product-detail-container{
   display: flex;
@@ -478,6 +485,11 @@ padding: 30px 65px;
   color: #f02d34;
   cursor: pointer;
   width: 200px;
+   transform: scale(1, 1);
+  transition: transform 0.5s ease;
+}
+.buttons .add-to-cart:hover{
+  transform:scale(1.1,1.1)
 }
 .buttons .buy-now{
   width: 200px;
@@ -490,6 +502,11 @@ padding: 30px 65px;
   font-size: 18px;
   font-weight: 500;
   cursor: pointer;
+   transform: scale(1, 1);
+  transition: transform 0.5s ease;
+}
+.buttons .buy-now:hover{
+  transform:scale(1.1,1.1)
 }
 .quantity-desc{
   border: 1px solid gray;
@@ -510,7 +527,9 @@ padding: 6px;
 }
 .quantity-desc .plus{
   color: rgb(80, 223, 80);
+
 }
+
 .maylike-products-wrapper{
   margin-top: 120px;
 }
@@ -530,6 +549,41 @@ padding: 6px;
 .max-qty{
   font-weight: 500;
   color: #f02d34;
+}
+.success, .cancel{
+  width: 400px;
+  min-height: 70vh;
+margin: auto;
+margin-top: 100px;
+  
+}
+
+.success .icon {
+   color: green;
+   text-align: center;
+   font-size: 40px;
+}
+.success h2{
+  text-transform: uppercase;
+  margin-top: 10px;
+  font-weight: 700;
+}
+.cancel p{
+  font-size: 20px;
+  font-weight: 600;
+}
+.success .description{
+  font-size: 16px;
+  font-weight: 600;
+  text-align: center;
+  margin: 10px;
+}
+.success .description .email{
+  margin-left: 5px;
+  color: #f02d34;
+}
+.product-max-qty{
+  margin-top: 10px;
 }
 
 @media screen and (max-width:800px) {
@@ -596,10 +650,14 @@ padding: 6px;
     height: 350px;
   }
   .cart-container{
-    width: 410px;
-  padding: 40px;
-
-
+    width: 415px;
+  padding: 4px;
+  }
+  .cart-heading{
+    margin-top: 35px;
+  }
+  .product-container{
+    margin-top: 10px;
   }
   .product{
     padding: 20px 5px;
@@ -613,7 +671,7 @@ padding: 6px;
     width: 150px;
   }
   .buttons .buy-now{
-    width: 120px;
+    width: 150px;
   }
   .product-detail-container{
     margin: 20px;
@@ -623,8 +681,7 @@ padding: 6px;
   width: 200px;
 }
 .top{
-  display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
   gap: 10px;
 
 
@@ -638,7 +695,10 @@ padding: 6px;
 }
 .flex h4{
   font-size: 16px;
-   color: #324d67;
+   color: black;
+}
+.cart-bottom{
+  padding: 30px;
 }
 
 .total h3{
@@ -648,5 +708,11 @@ padding: 6px;
   animation: marquee 10s linear infinite;
   width: 550%;
 }
-
+.success, .cancel{
+  width: 350px;
+  min-height: 60vh;
+}
+.success h2{
+  font-size: 20px;
+}
 }

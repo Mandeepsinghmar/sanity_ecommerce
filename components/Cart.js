@@ -4,8 +4,9 @@ import { AiOutlineMinus, AiOutlinePlus, AiOutlineLeft } from 'react-icons/ai';
 import { TiDeleteOutline } from 'react-icons/ti'
 
 import { useStateContext } from '../context/stateContext';
-import { urlFor } from '../client';
+import { urlFor } from '../lib/client';
 import ShoppingBag from '../images/shopping-bag.webp';
+import getStripe from '../lib/getStripe';
 
 const Cart = () => {
   const cartOutsideRef = useRef();
@@ -20,8 +21,29 @@ const Cart = () => {
     });
   };
 
+  const handleCheckout = async () => {
+    const stripe = await getStripe()
+
+    const response = await fetch("/api/stripe", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        cartItems
+      }),
+    })
+    if (response.statusCode === 500) {
+      console.error(response.message);
+      return;
+    }
+    const data = await response.json()
+    stripe.redirectToCheckout({ sessionId: data.id });
+
+
+  }
   closeCart(cartOutsideRef);
-  console.log(cartItems)
+
   return (
     <div className='cart-wrapper' ref={cartOutsideRef}>
       <div className='cart-container'>
@@ -34,7 +56,6 @@ const Cart = () => {
         {cartItems.length < 1 && (
           <div className='empty-cart'>
             <Image src={ShoppingBag} width={250} height={250} />
-
             <h3>Your Shopping Bag Is Empty.</h3>
             <button onClick={() => setShowCart(false)} className='btn'>Shop Items</button>
           </div>
@@ -43,8 +64,14 @@ const Cart = () => {
         <div className='product-container'>
           {cartItems.length >= 1 &&
             cartItems?.map((item, index) => (
-              <div className='product' key={index}>
-                <img
+              <div className='product' key={index} >
+                {
+                  console.log(
+                    item.image[0].asset._ref, urlFor(item?.image[0])
+                  )
+                }
+
+                < img
                   src={urlFor(item?.image[0])}
                   className='cart-product-image'
                 />
@@ -79,8 +106,16 @@ const Cart = () => {
                     <p className='remove-item' onClick={() => onRemove(item)}>
                       <TiDeleteOutline />
                     </p>
-                  </div>
 
+                  </div>
+                  {
+                    item.quantity === 7 && (
+                      <div className='product-max-qty'>
+                        <p className='max-qty'>You have added max allowed units for this item.</p>
+                      </div>
+
+                    )
+                  }
                 </div>
               </div>
             ))}
@@ -92,14 +127,13 @@ const Cart = () => {
                 <h3>Subtotal:</h3>
                 <h3>${totalPrice}</h3>
               </div>
-              <button className='btn'>Checkout</button>
-
+              <button className='btn' onClick={handleCheckout}>pay with stripe</button>
             </div>
           )
         }
 
       </div>
-    </div>
+    </div >
   );
 };
 
