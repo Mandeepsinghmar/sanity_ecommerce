@@ -2,7 +2,6 @@ import React from 'react';
 import { Toaster } from 'react-hot-toast';
 
 import { Layout } from '../components';
-// eslint-disable-next-line import/no-unresolved
 import { StateContext } from '../context/stateContext';
 import '../styles/globals.css';
 

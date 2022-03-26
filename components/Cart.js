@@ -5,7 +5,6 @@ import { AiOutlineMinus, AiOutlinePlus, AiOutlineLeft } from 'react-icons/ai';
 import { TiDeleteOutline } from 'react-icons/ti';
 import toast from 'react-hot-toast';
 
-// eslint-disable-next-line import/no-unresolved
 import { useStateContext } from '../context/stateContext';
 import { urlFor } from '../lib/client';
 import ShoppingBag from '../images/shopping-bag.webp';

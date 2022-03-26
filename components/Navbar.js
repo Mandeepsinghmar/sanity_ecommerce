@@ -2,7 +2,6 @@ import React from 'react';
 import Link from 'next/link';
 import { AiOutlineShopping } from 'react-icons/ai';
 
-// eslint-disable-next-line import/no-unresolved
 import { useStateContext } from '../context/stateContext';
 import { Cart } from '.';
 

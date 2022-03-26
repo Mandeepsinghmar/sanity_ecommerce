@@ -5,7 +5,6 @@ import Link from 'next/link';
 import { BsBagCheckFill } from 'react-icons/bs';
 import { useRouter } from 'next/router';
 
-// eslint-disable-next-line import/no-unresolved
 import { useStateContext } from '../context/stateContext';
 import { runFireworks } from '../lib/utils';
 

@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { AiOutlineMinus, AiOutlinePlus, AiFillStar, AiOutlineStar } from 'react-icons/ai';
 
 import { client, urlFor } from '../../lib/client';
-// eslint-disable-next-line import/no-unresolved
 import { useStateContext } from '../../context/stateContext';
 import { Product } from '../../components';
 
