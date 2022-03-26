@@ -3,8 +3,7 @@
 import React, { useEffect } from 'react';
 import Link from 'next/link';
 
-// eslint-disable-next-line import/no-unresolved
-import { useStateContext } from '../context/stateContext';
+import { useStateContext } from '../context/StateContext';
 
 const cancel = () => {
     const { setShowCart } = useStateContext();

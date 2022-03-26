@@ -5,7 +5,7 @@ import { AiOutlineMinus, AiOutlinePlus, AiOutlineLeft } from 'react-icons/ai';
 import { TiDeleteOutline } from 'react-icons/ti';
 import toast from 'react-hot-toast';
 
-import { useStateContext } from '../context/stateContext';
+import { useStateContext } from '../context/StateContext';
 import { urlFor } from '../lib/client';
 import ShoppingBag from '../images/shopping-bag.webp';
 import getStripe from '../lib/getStripe';
@@ -47,7 +47,11 @@ const Cart = () => {
   return (
     <div className="cart-wrapper" ref={cartRef}>
       <div className="cart-container">
-        <button type="button" className="cart-heading" onClick={() => setShowCart(false)}>
+        <button
+          type="button"
+          className="cart-heading"
+          onClick={() => setShowCart(false)}
+        >
           <AiOutlineLeft />
           <span className="heading">Your Cart</span>
           <span className="cart-num-items">({totalQuantities} items)</span>
@@ -58,7 +62,13 @@ const Cart = () => {
             <Image src={ShoppingBag} width={250} height={250} />
             <h3>Your Shopping Bag Is Empty.</h3>
             <Link href="/">
-              <button type="button" onClick={() => setShowCart(false)} className="btn">Shop Items</button>
+              <button
+                type="button"
+                onClick={() => setShowCart(false)}
+                className="btn"
+              >
+                Shop Items
+              </button>
             </Link>
           </div>
         )}
@@ -93,33 +103,32 @@ const Cart = () => {
                           <AiOutlinePlus />
                         </span>
                       </p>
-
                     </div>
-                    <button type="button" className="remove-item" onClick={() => onRemove(item)}>
+                    <button
+                      type="button"
+                      className="remove-item"
+                      onClick={() => onRemove(item)}
+                    >
                       <TiDeleteOutline />
                     </button>
-
                   </div>
-
                 </div>
               </div>
             ))}
         </div>
-        {
-          cartItems.length >= 1 && (
-            <div className="cart-bottom">
-              <div className="total">
-                <h3>Subtotal:</h3>
-                <h3>${totalPrice}</h3>
-              </div>
-              <div className="btn-container">
-                <button type="button" className="btn" onClick={handleCheckout}>pay with stripe</button>
-
-              </div>
+        {cartItems.length >= 1 && (
+          <div className="cart-bottom">
+            <div className="total">
+              <h3>Subtotal:</h3>
+              <h3>${totalPrice}</h3>
             </div>
-          )
-        }
-
+            <div className="btn-container">
+              <button type="button" className="btn" onClick={handleCheckout}>
+                pay with stripe
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
