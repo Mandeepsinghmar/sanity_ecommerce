@@ -59,7 +59,7 @@ const Cart = () => {
             <Image src={ShoppingBag} width={250} height={250} />
             <h3>Your Shopping Bag Is Empty.</h3>
             <Link href="/">
-              <button onClick={() => setShowCart(false)} className="btn">Shop Items</button>
+              <button type="button" onClick={() => setShowCart(false)} className="btn">Shop Items</button>
             </Link>
           </div>
         )}
@@ -68,10 +68,6 @@ const Cart = () => {
           {cartItems.length >= 1
             && cartItems?.map((item, index) => (
               <div className="product" key={index}>
-                {
-                  console.log(item.image[0].asset._ref, urlFor(item?.image[0]))
-                }
-
                 <img
                   src={urlFor(item?.image[0])}
                   className="cart-product-image"
@@ -100,9 +96,9 @@ const Cart = () => {
                       </p>
 
                     </div>
-                    <p className="remove-item" onClick={() => onRemove(item)}>
+                    <button type="button" className="remove-item" onClick={() => onRemove(item)}>
                       <TiDeleteOutline />
-                    </p>
+                    </button>
 
                   </div>
 
@@ -118,7 +114,7 @@ const Cart = () => {
                 <h3>${totalPrice}</h3>
               </div>
               <div className="btn-container">
-                <button className="btn" onClick={handleCheckout}>pay with stripe</button>
+                <button type="button" className="btn" onClick={handleCheckout}>pay with stripe</button>
 
               </div>
             </div>

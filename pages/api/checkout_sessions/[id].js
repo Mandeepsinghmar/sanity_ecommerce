@@ -10,13 +10,6 @@ export default async function handler(req, res) {
             if (id.startsWith('cs_')) {
                 const session = await stripe.checkout.sessions.retrieve(id);
                 const customer = await stripe.customers.retrieve(session.customer);
-
-                // stripe.paymentIntents.create({
-                //     amount: customer.balance,
-                //     currency: customer.currency,
-                //     payment_method_types: ['card'],
-                //     receipt_email: customer.email,
-                // });
                 res.status(200).json(customer);
             }
             throw Error('Incorrect Checkout Session ID.');

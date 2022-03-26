@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { toast } from 'react-hot-toast';
 
@@ -54,6 +55,7 @@ export const StateContext = ({ children }) => {
     } else {
       setTotalPrice(totalPrice + product.price * quantity);
       setTotalQuantities(totalQuantities + quantity);
+      // eslint-disable-next-line no-param-reassign
       product.quantity = quantity;
       setCartItems([...cartItems, { ...product }]);
 

@@ -380,6 +380,8 @@ padding: 20px 10px;
   font-size: 24px;
   color: #f02d34;
   cursor: pointer;
+  background: transparent;
+  border: none;
 }
 .cart-bottom{
   position: absolute;

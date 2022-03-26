@@ -22,7 +22,7 @@ const success = () => {
         runFireworks();
         const customerDetails = async () => {
             const response = await fetch(
-                `http://localhost:3000/api/checkout_sessions/${query.session_id}`,
+                `${process.env.NEXT_PUBLIC_BASE_URL}/api/checkout_sessions/${query.session_id}`,
                 {
                     method: 'GET',
                 },

@@ -41,8 +41,8 @@ export default async function handler(req, res) {
                         quantity: item.quantity,
                     };
                 }),
-                success_url: 'http://localhost:3000/success?session_id={CHECKOUT_SESSION_ID}',
-                cancel_url: 'http://localhost:3000/cancel',
+                success_url: `${process.env.NEXT_PUBLIC_BASE_URL}/success?session_id={CHECKOUT_SESSION_ID}`,
+                cancel_url: `${process.env.NEXT_PUBLIC_BASE_URL}/cancel`,
             };
             const checkoutSession = await stripe.checkout.sessions.create(params);
 
