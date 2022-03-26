@@ -218,9 +218,8 @@ text-align: end;
   height: 400px;
   line-height: 1; 
   color: white;
-  margin-top: 180px;
   width: 100%;
-
+  margin-top: 120px;
 }
 .banner-desc{
   display: flex ;
@@ -631,6 +630,7 @@ margin-top: 160px;
   }
   .footer-banner-container{
     height: 560px;
+    margin-top: 80px;
   }
   .footer-banner-image{
     width: 77%;

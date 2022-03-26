@@ -6,7 +6,9 @@ import { Footer, Navbar } from '.';
 function Layout({ children }) {
   return (
     <div className="layout">
-      <Head>Phanox</Head>
+      <Head>
+        <title>Phanox</title>
+      </Head>
       <header>
         <Navbar />
       </header>

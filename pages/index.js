@@ -16,20 +16,7 @@ const Home = ({ products, bannerData }) => (
         <Product key={product._id} product={product} />
       ))}
     </div>
-    {/* <p className='marquee-text track'>
-        <span>NO. 1 Wireless Hearable Brand In World</span>
-        <span>NO. 1 Wireless Hearable Brand In World</span>
-        <span>NO. 1 Wireless Hearable Brand In World</span>
-        <span>NO. 1 Wireless Hearable Brand In World</span>
-        <span>NO. 1 Wireless Hearable Brand In World</span>
-        <span>NO. 1 Wireless Hearable Brand In World</span>
-        <span>NO. 1 Wireless Hearable Brand In World</span>
-        <span>NO. 1 Wireless Hearable Brand In World</span>
-        <span>NO. 1 Wireless Hearable Brand In World</span>
-        <span>NO. 1 Wireless Hearable Brand In World</span>
-      </p> */}
     <FooterBanner footerBanner={bannerData && bannerData[0]} />
-
   </div>
 );
 
