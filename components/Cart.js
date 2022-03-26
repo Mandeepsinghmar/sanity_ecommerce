@@ -1,113 +1,106 @@
 import React, { useRef } from 'react';
 import Image from 'next/image';
-import Link from 'next/link'
+import Link from 'next/link';
 import { AiOutlineMinus, AiOutlinePlus, AiOutlineLeft } from 'react-icons/ai';
-import { TiDeleteOutline } from 'react-icons/ti'
+import { TiDeleteOutline } from 'react-icons/ti';
 import toast from 'react-hot-toast';
 
+// eslint-disable-next-line import/no-unresolved
 import { useStateContext } from '../context/stateContext';
 import { urlFor } from '../lib/client';
 import ShoppingBag from '../images/shopping-bag.webp';
 import getStripe from '../lib/getStripe';
 
 const Cart = () => {
-  const cartOutsideRef = useRef();
+  const cartRef = useRef();
   const { totalPrice, totalQuantities, cartItems, toggleCartItemQuantity, setShowCart, onRemove } = useStateContext();
 
-  const closeCart = (cart_Outside_Ref) => {
+  const closeCart = (cartOutsideRef) => {
     document.addEventListener('mousedown', (e) => {
-      if (cart_Outside_Ref.current === e.target) {
+      if (cartOutsideRef.current === e.target) {
         setShowCart(false);
-
       }
     });
   };
 
   const handleCheckout = async () => {
-    const stripe = await getStripe()
+    const stripe = await getStripe();
 
-    const response = await fetch("/api/stripe", {
-      method: "POST",
+    const response = await fetch('/api/stripe', {
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        cartItems
+        cartItems,
       }),
-    })
+    });
     if (response.statusCode === 500) {
-      console.error(response.message);
       return;
     }
-    const data = await response.json()
+    const data = await response.json();
     toast.loading('Redirecting...');
 
     stripe.redirectToCheckout({ sessionId: data.id });
-  }
-  closeCart(cartOutsideRef);
+  };
+  closeCart(cartRef);
 
   return (
-    <div className='cart-wrapper' ref={cartOutsideRef}>
-      <div className='cart-container'>
-        <p className='cart-heading' onClick={() => setShowCart(false)}>
+    <div className="cart-wrapper" ref={cartRef}>
+      <div className="cart-container">
+        <button type="button" className="cart-heading" onClick={() => setShowCart(false)}>
           <AiOutlineLeft />
-          <span className='heading'>Your Cart</span>
-          <span className='cart-num-items'>({totalQuantities} items)</span>
-        </p>
+          <span className="heading">Your Cart</span>
+          <span className="cart-num-items">({totalQuantities} items)</span>
+        </button>
 
         {cartItems.length < 1 && (
-          <div className='empty-cart'>
+          <div className="empty-cart">
             <Image src={ShoppingBag} width={250} height={250} />
             <h3>Your Shopping Bag Is Empty.</h3>
-            <Link href='/'>
-              <button onClick={() => setShowCart(false)} className='btn'>Shop Items</button>
+            <Link href="/">
+              <button onClick={() => setShowCart(false)} className="btn">Shop Items</button>
             </Link>
           </div>
         )}
 
-        <div className='product-container'>
-          {cartItems.length >= 1 &&
-            cartItems?.map((item, index) => (
-              <div className='product' key={index} >
+        <div className="product-container">
+          {cartItems.length >= 1
+            && cartItems?.map((item, index) => (
+              <div className="product" key={index}>
                 {
-                  console.log(
-                    item.image[0].asset._ref, urlFor(item?.image[0])
-                  )
+                  console.log(item.image[0].asset._ref, urlFor(item?.image[0]))
                 }
 
-                < img
+                <img
                   src={urlFor(item?.image[0])}
-                  className='cart-product-image'
+                  className="cart-product-image"
                 />
-                <div className='item-desc'>
-                  <div className='flex top'>
+                <div className="item-desc">
+                  <div className="flex top">
                     <h5>{item.name}</h5>
                     <h4>${item.price}</h4>
                   </div>
-                  <div className='flex bottom'>
+                  <div className="flex bottom">
                     <div>
-                      <p className='quantity-desc'>
+                      <p className="quantity-desc">
                         <span
-                          className='minus'
-                          onClick={() =>
-                            toggleCartItemQuantity(item._id, 'dec')
-                          }
+                          className="minus"
+                          onClick={() => toggleCartItemQuantity(item._id, 'dec')}
                         >
                           <AiOutlineMinus />
                         </span>
-                        <span className='num'>{item.quantity}</span>
+                        <span className="num">{item.quantity}</span>
                         <span
-                          className='plus'
-                          onClick={() =>
-                            toggleCartItemQuantity(item._id, 'inc')
-                          }
+                          className="plus"
+                          onClick={() => toggleCartItemQuantity(item._id, 'inc')}
                         >
                           <AiOutlinePlus />
                         </span>
                       </p>
 
                     </div>
-                    <p className='remove-item' onClick={() => onRemove(item)}>
+                    <p className="remove-item" onClick={() => onRemove(item)}>
                       <TiDeleteOutline />
                     </p>
 
@@ -119,13 +112,13 @@ const Cart = () => {
         </div>
         {
           cartItems.length >= 1 && (
-            <div className='cart-bottom'>
-              <div className='total'>
+            <div className="cart-bottom">
+              <div className="total">
                 <h3>Subtotal:</h3>
                 <h3>${totalPrice}</h3>
               </div>
-              <div className='btn-container'>
-                <button className='btn' onClick={handleCheckout}>pay with stripe</button>
+              <div className="btn-container">
+                <button className="btn" onClick={handleCheckout}>pay with stripe</button>
 
               </div>
             </div>
@@ -133,7 +126,7 @@ const Cart = () => {
         }
 
       </div>
-    </div >
+    </div>
   );
 };
 

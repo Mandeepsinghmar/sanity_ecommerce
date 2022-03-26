@@ -4,19 +4,16 @@ import { toast } from 'react-hot-toast';
 const Context = createContext();
 
 export const StateContext = ({ children }) => {
-
   const getLocalStorage = (name) => {
     if (typeof window !== 'undefined') {
-      let storage = localStorage.getItem(name);
+      const storage = localStorage.getItem(name);
       if (storage) {
         return JSON.parse(localStorage.getItem(name));
-      } else {
-        if (name === 'cartItems') {
-          return [];
-        } else {
-          return 0;
-        }
       }
+      if (name === 'cartItems') {
+        return [];
+      }
+      return 0;
     }
   };
 
@@ -24,10 +21,9 @@ export const StateContext = ({ children }) => {
   const [cartItems, setCartItems] = useState(getLocalStorage('cartItems'));
   const [totalPrice, setTotalPrice] = useState(getLocalStorage('totalPrice'));
   const [totalQuantities, setTotalQuantities] = useState(
-    getLocalStorage('totalQuantities')
+    getLocalStorage('totalQuantities'),
   );
   const [qty, setQty] = useState(1);
-
 
   let findProduct;
   let index;
@@ -39,7 +35,7 @@ export const StateContext = ({ children }) => {
 
   const onAdd = (product, quantity) => {
     const checkProductInCart = cartItems.find(
-      (cartProduct) => cartProduct._id === product._id
+      (cartProduct) => cartProduct._id === product._id,
     );
 
     if (checkProductInCart) {
@@ -49,9 +45,8 @@ export const StateContext = ({ children }) => {
       const updatedCartItems = cartItems.map((cartProduct) => {
         if (cartProduct._id === product._id) {
           return { ...cartProduct, quantity: cartProduct.quantity + quantity };
-        } else {
-          return cartProduct;
         }
+        return cartProduct;
       });
 
       setCartItems(updatedCartItems);
@@ -66,7 +61,6 @@ export const StateContext = ({ children }) => {
     }
   };
 
-
   const onRemove = (product) => {
     findProduct = cartItems.find((item) => item._id === product._id);
     const tempCart = cartItems.filter((item) => item._id !== product._id);
@@ -80,12 +74,10 @@ export const StateContext = ({ children }) => {
     index = cartItems.findIndex((product) => product._id === id);
 
     if (value === 'inc') {
-
       findProduct.quantity += 1;
       cartItems[index] = findProduct;
       setTotalPrice(totalPrice + findProduct.price);
       setTotalQuantities(totalQuantities + 1);
-
     }
 
     if (value === 'dec') {
@@ -100,7 +92,7 @@ export const StateContext = ({ children }) => {
 
   const incQty = () => {
     setQty((oldQty) => {
-      let tempQty = oldQty + 1;
+      const tempQty = oldQty + 1;
       return tempQty;
     });
   };
@@ -117,6 +109,7 @@ export const StateContext = ({ children }) => {
 
   return (
     <Context.Provider
+      // eslint-disable-next-line react/jsx-no-constructed-context-values
       value={{
         onAdd,
         onRemove,

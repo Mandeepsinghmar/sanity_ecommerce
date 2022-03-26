@@ -2,12 +2,13 @@ import React, { useState } from 'react';
 import { AiOutlineMinus, AiOutlinePlus, AiFillStar, AiOutlineStar } from 'react-icons/ai';
 
 import { client, urlFor } from '../../lib/client';
+// eslint-disable-next-line import/no-unresolved
 import { useStateContext } from '../../context/stateContext';
 import { Product } from '../../components';
 
 const ProductDetail = ({ product, products }) => {
   const { image, name, details, price } = product;
-  const [index, setIndex] = useState(0)
+  const [index, setIndex] = useState(0);
   const { onAdd, setShowCart, decQty, incQty, qty } = useStateContext();
 
   const handleBuyNow = () => {
@@ -17,12 +18,12 @@ const ProductDetail = ({ product, products }) => {
 
   return (
     <div>
-      <div className='product-detail-container'>
+      <div className="product-detail-container">
         <div>
-          <div className='image-container'>
-            <img src={urlFor(image && image[index])} className='product-detail-image' />
+          <div className="image-container">
+            <img src={urlFor(image && image[index])} className="product-detail-image" />
           </div>
-          <div className='small-images-container'>
+          <div className="small-images-container">
             {
               image?.map((item, idx) => (
                 <img src={urlFor(item)} onMouseEnter={() => setIndex(idx)} className={idx === index ? 'small-image selected-image' : 'small-image'} />
@@ -31,9 +32,9 @@ const ProductDetail = ({ product, products }) => {
           </div>
         </div>
 
-        <div className='product-detail-desc'>
+        <div className="product-detail-desc">
           <h1>{name}</h1>
-          <div className='reviews'>
+          <div className="reviews">
             <div>
               <AiFillStar />
               <AiFillStar />
@@ -47,36 +48,36 @@ const ProductDetail = ({ product, products }) => {
           </div>
           <h4>Details:</h4>
           <p>{details}</p>
-          <p className='price'>${price}</p>
-          <div className='quantity'>
+          <p className="price">${price}</p>
+          <div className="quantity">
             <h3>Quantity:</h3>
-            <p className='quantity-desc'>
-              <span className='minus' onClick={decQty}>
+            <p className="quantity-desc">
+              <span className="minus" onClick={decQty}>
                 <AiOutlineMinus />
               </span>
-              <span className='num'>{qty}</span>
-              <span className='plus' onClick={incQty}>
+              <span className="num">{qty}</span>
+              <span className="plus" onClick={incQty}>
                 <AiOutlinePlus />
               </span>
             </p>
           </div>
-          <div className='buttons'>
-            <button className='add-to-cart' onClick={() => onAdd(product, qty)}>
+          <div className="buttons">
+            <button type="button" className="add-to-cart" onClick={() => onAdd(product, qty)}>
               Add to cart
             </button>
-            <button className='buy-now' onClick={handleBuyNow}>
+            <button type="button" className="buy-now" onClick={handleBuyNow}>
               Buy now
             </button>
           </div>
         </div>
       </div>
-      <div className='maylike-products-wrapper'>
+      <div className="maylike-products-wrapper">
         <h2>You May Also Like</h2>
-        <div className='marquee'>
-          <div className='maylike-products-container track'>
+        <div className="marquee">
+          <div className="maylike-products-container track">
             {
-              products.map((product) => (
-                <Product product={product} />
+              products.map((item) => (
+                <Product product={item} />
               ))
             }
           </div>

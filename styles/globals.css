@@ -75,6 +75,8 @@ width: 100%;
   cursor: pointer;
   position: relative;
   transition: transform .4s ease;
+  border: none;
+  background-color: transparent;
 }
 .cart-icon:hover{
   transform: scale(1.1,1.1);
@@ -311,6 +313,8 @@ text-align: end;
   cursor: pointer;
   gap: 2px;
   margin-left: 10px;
+  border: none;
+  background-color: transparent;
 }
 
 .cart-heading .heading{

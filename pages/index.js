@@ -3,21 +3,20 @@ import React from 'react';
 import { client } from '../lib/client';
 import { Product, FooterBanner, HeroBanner } from '../components';
 
-const Home = ({ products, bannerData }) => {
-  return (
-    <div>
-      <HeroBanner heroBanner={bannerData && bannerData[1]} />
-      <div className='products-heading'>
+const Home = ({ products, bannerData }) => (
+  <div>
+    <HeroBanner heroBanner={bannerData && bannerData[1]} />
+    <div className="products-heading">
 
-        <h2>Best Seller Products</h2>
-        <p>speaker There are many variations passages</p>
-      </div>
-      <div className='products-container'>
-        {products?.map((product) => (
-          <Product key={product._id} product={product} />
-        ))}
-      </div>
-      {/* <p className='marquee-text track'>
+      <h2>Best Seller Products</h2>
+      <p>speaker There are many variations passages</p>
+    </div>
+    <div className="products-container">
+      {products?.map((product) => (
+        <Product key={product._id} product={product} />
+      ))}
+    </div>
+    {/* <p className='marquee-text track'>
         <span>NO. 1 Wireless Hearable Brand In World</span>
         <span>NO. 1 Wireless Hearable Brand In World</span>
         <span>NO. 1 Wireless Hearable Brand In World</span>
@@ -29,11 +28,10 @@ const Home = ({ products, bannerData }) => {
         <span>NO. 1 Wireless Hearable Brand In World</span>
         <span>NO. 1 Wireless Hearable Brand In World</span>
       </p> */}
-      <FooterBanner footerBanner={bannerData && bannerData[0]} />
+    <FooterBanner footerBanner={bannerData && bannerData[0]} />
 
-    </div >
-  );
-};
+  </div>
+);
 
 export const getServerSideProps = async () => {
   const query = '*[_type == "product"]';
@@ -44,7 +42,6 @@ export const getServerSideProps = async () => {
   return {
     props: { products, bannerData },
   };
-
 };
 
 export default Home;
