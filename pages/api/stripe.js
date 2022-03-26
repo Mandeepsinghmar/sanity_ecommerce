@@ -37,12 +37,11 @@ export default async function handler(req, res) {
                         adjustable_quantity: {
                             enabled: true,
                             minimum: 1,
-                            maximum: 10,
                         },
                         quantity: item.quantity,
                     }
                 }),
-                success_url: 'http://localhost:3000/success',
+                success_url: "http://localhost:3000/success?session_id={CHECKOUT_SESSION_ID}",
                 cancel_url: 'http://localhost:3000/cancel',
             };
             const checkoutSession = await stripe.checkout.sessions.create(params);
@@ -51,8 +50,10 @@ export default async function handler(req, res) {
         } catch (err) {
             res.status(500).json({ statusCode: 500, message: err.message });
         }
-    } else {
-        res.setHeader("Allow", "POST");
-        res.status(405).end("Method Not Allowed");
     }
+    else {
+        res.setHeader('Allow', 'POST');
+        res.status(405).end('Method Not Allowed');
+    }
+
 }

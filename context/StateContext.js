@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import { toast } from 'react-hot-toast';
 
 const Context = createContext();
 
@@ -25,12 +26,11 @@ export const StateContext = ({ children }) => {
   const [totalQuantities, setTotalQuantities] = useState(
     getLocalStorage('totalQuantities')
   );
-  const [maxQty, setMaxQty] = useState(false);
   const [qty, setQty] = useState(1);
+
 
   let findProduct;
   let index;
-
   useEffect(() => {
     localStorage.setItem('cartItems', JSON.stringify(cartItems));
     localStorage.setItem('totalPrice', JSON.stringify(totalPrice));
@@ -55,11 +55,14 @@ export const StateContext = ({ children }) => {
       });
 
       setCartItems(updatedCartItems);
+      toast.success(`${qty} ${product.name} added`);
     } else {
       setTotalPrice(totalPrice + product.price * quantity);
       setTotalQuantities(totalQuantities + quantity);
       product.quantity = quantity;
       setCartItems([...cartItems, { ...product }]);
+
+      toast.success(`${qty} ${product.name} added`);
     }
   };
 
@@ -77,13 +80,11 @@ export const StateContext = ({ children }) => {
     index = cartItems.findIndex((product) => product._id === id);
 
     if (value === 'inc') {
-      if (findProduct.quantity < 7) {
 
-        findProduct.quantity += 1;
-        cartItems[index] = findProduct;
-        setTotalPrice(totalPrice + findProduct.price);
-        setTotalQuantities(totalQuantities + 1);
-      }
+      findProduct.quantity += 1;
+      cartItems[index] = findProduct;
+      setTotalPrice(totalPrice + findProduct.price);
+      setTotalQuantities(totalQuantities + 1);
 
     }
 
@@ -100,18 +101,12 @@ export const StateContext = ({ children }) => {
   const incQty = () => {
     setQty((oldQty) => {
       let tempQty = oldQty + 1;
-      setMaxQty(false);
-      if (tempQty >= 7) {
-        tempQty = 7;
-        setMaxQty(true);
-      }
       return tempQty;
     });
   };
 
   const decQty = () => {
     setQty((oldQty) => {
-      setMaxQty(false);
       let tempQty = oldQty - 1;
       if (tempQty < 1) {
         tempQty = 1;
@@ -129,8 +124,10 @@ export const StateContext = ({ children }) => {
         totalPrice,
         totalQuantities,
         setShowCart,
+        setCartItems,
+        setTotalPrice,
+        setTotalQuantities,
         showCart,
-        maxQty,
         incQty,
         decQty,
         qty,

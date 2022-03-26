@@ -1,32 +1,29 @@
 import React from 'react';
-import Image from 'next/image';
 import Link from 'next/link';
 
-import ProductImage from '../images/footer-banner.webp';
+import { urlFor } from '../lib/client';
 
-const FooterBanner = () => (
+const FooterBanner = ({ footerBanner }) => (
   <div className='footer-banner-container'>
     <div className='banner-desc'>
       <div className='left'>
-        <p>20% OFF</p>
-        <h3>FINE</h3>
-        <h3>SMILE</h3>
-        <p>15 Nov to 7 dec</p>
+        <p>{footerBanner.discount}</p>
+        <h3>{footerBanner.largeText1}</h3>
+        <h3>{footerBanner.largeText2}</h3>
+        <p>{footerBanner.saleTime}</p>
       </div>
       <div className='right'>
-        <p>Beats Solo Air</p>
-        <h3>Summer Sale</h3>
+        <p>{footerBanner.smallText}</p>
+        <h3>{footerBanner.midText}</h3>
         <p className='company-desc'>
-          company that's grown from 270 to 480 employees in the last 12 months.
+          {footerBanner.desc}
         </p>
-        <Link href='/product/boat-rockerz-451'>
-          <button>Shop Now</button>
+        <Link href={`/product/${footerBanner.product}`}>
+          <button>{footerBanner.buttonText}</button>
         </Link>
       </div>
 
-      <div className='footer-banner-image'>
-        <Image src={ProductImage} className='footer-banner-image' />
-      </div>
+      <img src={urlFor(footerBanner.image)} className='footer-banner-image' />
     </div>
   </div>
 );

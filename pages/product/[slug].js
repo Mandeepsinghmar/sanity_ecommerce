@@ -8,7 +8,7 @@ import { Product } from '../../components';
 const ProductDetail = ({ product, products }) => {
   const { image, name, details, price } = product;
   const [index, setIndex] = useState(0)
-  const { onAdd, cartItems, setShowCart, maxQty, decQty, incQty, qty } = useStateContext();
+  const { onAdd, setShowCart, decQty, incQty, qty } = useStateContext();
 
   const handleBuyNow = () => {
     onAdd(product, qty);
@@ -60,7 +60,6 @@ const ProductDetail = ({ product, products }) => {
               </span>
             </p>
           </div>
-          {maxQty && <p className='max-qty'>You have added max allowed units for this item.</p>}
           <div className='buttons'>
             <button className='add-to-cart' onClick={() => onAdd(product, qty)}>
               Add to cart
@@ -82,7 +81,6 @@ const ProductDetail = ({ product, products }) => {
             }
           </div>
         </div>
-
       </div>
     </div>
   );

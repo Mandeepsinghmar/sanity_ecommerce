@@ -1,7 +1,9 @@
 import React, { useRef } from 'react';
 import Image from 'next/image';
+import Link from 'next/link'
 import { AiOutlineMinus, AiOutlinePlus, AiOutlineLeft } from 'react-icons/ai';
 import { TiDeleteOutline } from 'react-icons/ti'
+import toast from 'react-hot-toast';
 
 import { useStateContext } from '../context/stateContext';
 import { urlFor } from '../lib/client';
@@ -38,9 +40,9 @@ const Cart = () => {
       return;
     }
     const data = await response.json()
+    toast.loading('Redirecting...');
+
     stripe.redirectToCheckout({ sessionId: data.id });
-
-
   }
   closeCart(cartOutsideRef);
 
@@ -57,7 +59,9 @@ const Cart = () => {
           <div className='empty-cart'>
             <Image src={ShoppingBag} width={250} height={250} />
             <h3>Your Shopping Bag Is Empty.</h3>
-            <button onClick={() => setShowCart(false)} className='btn'>Shop Items</button>
+            <Link href='/'>
+              <button onClick={() => setShowCart(false)} className='btn'>Shop Items</button>
+            </Link>
           </div>
         )}
 
@@ -108,14 +112,7 @@ const Cart = () => {
                     </p>
 
                   </div>
-                  {
-                    item.quantity === 7 && (
-                      <div className='product-max-qty'>
-                        <p className='max-qty'>You have added max allowed units for this item.</p>
-                      </div>
 
-                    )
-                  }
                 </div>
               </div>
             ))}
@@ -127,7 +124,10 @@ const Cart = () => {
                 <h3>Subtotal:</h3>
                 <h3>${totalPrice}</h3>
               </div>
-              <button className='btn' onClick={handleCheckout}>pay with stripe</button>
+              <div className='btn-container'>
+                <button className='btn' onClick={handleCheckout}>pay with stripe</button>
+
+              </div>
             </div>
           )
         }

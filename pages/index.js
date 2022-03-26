@@ -3,10 +3,10 @@ import React from 'react';
 import { client } from '../lib/client';
 import { Product, FooterBanner, HeroBanner } from '../components';
 
-const Home = ({ products }) => {
+const Home = ({ products, bannerData }) => {
   return (
     <div>
-      <HeroBanner />
+      <HeroBanner heroBanner={bannerData && bannerData[1]} />
       <div className='products-heading'>
 
         <h2>Best Seller Products</h2>
@@ -17,21 +17,19 @@ const Home = ({ products }) => {
           <Product key={product._id} product={product} />
         ))}
       </div>
-      <p className='marquee-container'>
-        <marquee scrollamount='10' >
-          <span className='text-red'>NO. 1 Wireless Hearable Brand In World</span>
-          <span className='text-red'>NO. 1 Wireless Hearable Brand In World</span>
-          <span className='text-red'>NO. 1 Wireless Hearable Brand In World</span>
-          <span className='text-red'>NO. 1 Wireless Hearable Brand In World</span>
-          <span className='text-red'>NO. 1 Wireless Hearable Brand In World</span>
-          <span className='text-red'>NO. 1 Wireless Hearable Brand In World</span>
-          <span className='text-red'>NO. 1 Wireless Hearable Brand In World</span>
-          <span className='text-red'>NO. 1 Wireless Hearable Brand In World</span>
-          <span className='text-red'>NO. 1 Wireless Hearable Brand In World</span>
-          <span className='text-red'>NO. 1 Wireless Hearable Brand In World</span>
-        </marquee>
-      </p>
-      <FooterBanner />
+      {/* <p className='marquee-text track'>
+        <span>NO. 1 Wireless Hearable Brand In World</span>
+        <span>NO. 1 Wireless Hearable Brand In World</span>
+        <span>NO. 1 Wireless Hearable Brand In World</span>
+        <span>NO. 1 Wireless Hearable Brand In World</span>
+        <span>NO. 1 Wireless Hearable Brand In World</span>
+        <span>NO. 1 Wireless Hearable Brand In World</span>
+        <span>NO. 1 Wireless Hearable Brand In World</span>
+        <span>NO. 1 Wireless Hearable Brand In World</span>
+        <span>NO. 1 Wireless Hearable Brand In World</span>
+        <span>NO. 1 Wireless Hearable Brand In World</span>
+      </p> */}
+      <FooterBanner footerBanner={bannerData && bannerData[0]} />
 
     </div >
   );
@@ -40,9 +38,13 @@ const Home = ({ products }) => {
 export const getServerSideProps = async () => {
   const query = '*[_type == "product"]';
   const products = await client.fetch(query);
+
+  const bannerQuery = '*[_type == "banner"]';
+  const bannerData = await client.fetch(bannerQuery);
   return {
-    props: { products },
+    props: { products, bannerData },
   };
+
 };
 
 export default Home;
