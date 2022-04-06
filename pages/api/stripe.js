@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable indent */
 import Stripe from 'stripe';
 
@@ -12,16 +13,11 @@ export default async function handler(req, res) {
                 payment_method_types: ['card'],
                 billing_address_collection: 'auto',
                 shipping_options: [
-                    {
-                        shipping_rate: 'shr_1Kfg5pSIiYD0ysKdzsoq6SgO',
-                    },
-                    {
-                        shipping_rate: 'shr_1Kffy4SIiYD0ysKdhiPa3zWq',
-                    },
+                    { shipping_rate: 'shr_1Kfg5pSIiYD0ysKdzsoq6SgO' },
+                    { shipping_rate: 'shr_1Kffy4SIiYD0ysKdhiPa3zWq' },
                 ],
 
                 line_items: req.body.cartItems.map((item) => {
-                    // eslint-disable-next-line no-underscore-dangle
                     const img = item.image[0].asset._ref;
                     const newImg = img.replace('image-', 'https://cdn.sanity.io/images/s4nqfjth/production/').replace('-webp', '.webp');
 
@@ -44,6 +40,7 @@ export default async function handler(req, res) {
                 success_url: `${process.env.NEXT_PUBLIC_BASE_URL}/success?session_id={CHECKOUT_SESSION_ID}`,
                 cancel_url: `${process.env.NEXT_PUBLIC_BASE_URL}/cancel`,
             };
+
             const checkoutSession = await stripe.checkout.sessions.create(params);
 
             res.status(200).json(checkoutSession);

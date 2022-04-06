@@ -7,9 +7,11 @@ import { useStateContext } from '../context/StateContext';
 
 const cancel = () => {
     const { setShowCart } = useStateContext();
+
     useEffect(() => {
         setShowCart(true);
     }, []);
+
     return (
         <div className="cancel-wrapper">
             <div className="cancel">

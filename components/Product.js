@@ -5,9 +5,11 @@ import { urlFor } from '../lib/client';
 
 const Product = ({ product }) => {
   const { image, name, slug, price } = product;
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
   return (
     <div>
       <Link href={`/product/${slug.current}`}>

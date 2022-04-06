@@ -12,6 +12,7 @@ const ProductDetail = ({ product, products }) => {
 
   const handleBuyNow = () => {
     onAdd(product, qty);
+
     setShowCart(true);
   };
 
@@ -23,11 +24,9 @@ const ProductDetail = ({ product, products }) => {
             <img src={urlFor(image && image[index])} className="product-detail-image" />
           </div>
           <div className="small-images-container">
-            {
-              image?.map((item, idx) => (
-                <img src={urlFor(item)} onMouseEnter={() => setIndex(idx)} className={idx === index ? 'small-image selected-image' : 'small-image'} />
-              ))
-            }
+            {image?.map((item, idx) => (
+              <img src={urlFor(item)} onMouseEnter={() => setIndex(idx)} className={idx === index ? 'small-image selected-image' : 'small-image'} />
+            ))}
           </div>
         </div>
 
@@ -74,11 +73,9 @@ const ProductDetail = ({ product, products }) => {
         <h2>You May Also Like</h2>
         <div className="marquee">
           <div className="maylike-products-container track">
-            {
-              products.map((item) => (
-                <Product product={item} />
-              ))
-            }
+            {products.map((item) => (
+              <Product product={item} />
+            ))}
           </div>
         </div>
       </div>
@@ -92,7 +89,9 @@ export const getStaticPaths = async () => {
       current
     }
   }`;
+
   const products = await client.fetch(query);
+
   const paths = products.map((product) => ({
     params: {
       slug: product.slug.current,

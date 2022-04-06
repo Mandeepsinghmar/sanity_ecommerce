@@ -12,6 +12,7 @@ const FooterBanner = ({ footerBanner }) => (
         <h3>{footerBanner.largeText2}</h3>
         <p>{footerBanner.saleTime}</p>
       </div>
+
       <div className="right">
         <p>{footerBanner.smallText}</p>
         <h3>{footerBanner.midText}</h3>

@@ -19,17 +19,17 @@ const success = () => {
         setTotalPrice(0);
         setTotalQuantities(0);
         runFireworks();
+
         const customerDetails = async () => {
             const response = await fetch(
                 `${process.env.NEXT_PUBLIC_BASE_URL}/api/checkout_sessions/${query.session_id}`,
-                {
-                    method: 'GET',
-                },
+                { method: 'GET' },
             );
-            if (response.statusCode === 500) {
-                return;
-            }
+
+            if (response.statusCode === 500) return;
+
             const data = await response.json();
+
             setOrder(data);
         };
 

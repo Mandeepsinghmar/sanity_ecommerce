@@ -34,14 +34,16 @@ const Cart = () => {
         cartItems,
       }),
     });
-    if (response.statusCode === 500) {
-      return;
-    }
+
+    if (response.statusCode === 500) return;
+
     const data = await response.json();
+
     toast.loading('Redirecting...');
 
     stripe.redirectToCheckout({ sessionId: data.id });
   };
+
   closeCart(cartRef);
 
   return (
@@ -74,47 +76,43 @@ const Cart = () => {
         )}
 
         <div className="product-container">
-          {cartItems.length >= 1
-            && cartItems?.map((item, index) => (
-              <div className="product" key={index}>
-                <img
-                  src={urlFor(item?.image[0])}
-                  className="cart-product-image"
-                />
-                <div className="item-desc">
-                  <div className="flex top">
-                    <h5>{item.name}</h5>
-                    <h4>${item.price}</h4>
+          {cartItems.length >= 1 && cartItems?.map((item, index) => (
+            <div className="product" key={index}>
+              <img src={urlFor(item?.image[0])} className="cart-product-image" />
+              <div className="item-desc">
+                <div className="flex top">
+                  <h5>{item.name}</h5>
+                  <h4>${item.price}</h4>
+                </div>
+                <div className="flex bottom">
+                  <div>
+                    <p className="quantity-desc">
+                      <span
+                        className="minus"
+                        onClick={() => toggleCartItemQuantity(item._id, 'dec')}
+                      >
+                        <AiOutlineMinus />
+                      </span>
+                      <span className="num">{item.quantity}</span>
+                      <span
+                        className="plus"
+                        onClick={() => toggleCartItemQuantity(item._id, 'inc')}
+                      >
+                        <AiOutlinePlus />
+                      </span>
+                    </p>
                   </div>
-                  <div className="flex bottom">
-                    <div>
-                      <p className="quantity-desc">
-                        <span
-                          className="minus"
-                          onClick={() => toggleCartItemQuantity(item._id, 'dec')}
-                        >
-                          <AiOutlineMinus />
-                        </span>
-                        <span className="num">{item.quantity}</span>
-                        <span
-                          className="plus"
-                          onClick={() => toggleCartItemQuantity(item._id, 'inc')}
-                        >
-                          <AiOutlinePlus />
-                        </span>
-                      </p>
-                    </div>
-                    <button
-                      type="button"
-                      className="remove-item"
-                      onClick={() => onRemove(item)}
-                    >
-                      <TiDeleteOutline />
-                    </button>
-                  </div>
+                  <button
+                    type="button"
+                    className="remove-item"
+                    onClick={() => onRemove(item)}
+                  >
+                    <TiDeleteOutline />
+                  </button>
                 </div>
               </div>
-            ))}
+            </div>
+          ))}
         </div>
         {cartItems.length >= 1 && (
           <div className="cart-bottom">
