@@ -1,13 +1,11 @@
 import React, { useRef } from 'react';
-import Image from 'next/image';
 import Link from 'next/link';
-import { AiOutlineMinus, AiOutlinePlus, AiOutlineLeft } from 'react-icons/ai';
+import { AiOutlineMinus, AiOutlinePlus, AiOutlineLeft, AiOutlineShopping } from 'react-icons/ai';
 import { TiDeleteOutline } from 'react-icons/ti';
 import toast from 'react-hot-toast';
 
 import { useStateContext } from '../context/StateContext';
 import { urlFor } from '../lib/client';
-import ShoppingBag from '../images/shopping-bag.webp';
 import getStripe from '../lib/getStripe';
 
 const Cart = () => {
@@ -61,7 +59,7 @@ const Cart = () => {
 
         {cartItems.length < 1 && (
           <div className="empty-cart">
-            <Image src={ShoppingBag} width={250} height={250} />
+            <AiOutlineShopping size={150} />
             <h3>Your Shopping Bag Is Empty.</h3>
             <Link href="/">
               <button
